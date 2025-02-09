@@ -67,8 +67,8 @@ async def start_command(client: Client, message: Message):
                 await update_verify_status(id, verify_token=token, link="")
                 link = await get_shortlink(SHORTLINK_URL, SHORTLINK_API, f'https://telegram.dog/{client.username}?start=verify_{token}')
                 btn = [
-                    [InlineKeyboardButton("• ᴏᴘᴇɴ ʟɪɴᴋ •", url=link)],
-                    [InlineKeyboardButton('• ʜᴏᴡ ᴛᴏ ᴏᴘᴇɴ ʟɪɴᴋ •', url=TUT_VID)]
+                    [InlineKeyboardButton("• Ouvrir le lien •", url=link)],
+                    [InlineKeyboardButton('• Comment Ouvrir •', url=TUT_VID)]
                 ]
                 return await message.reply(
                     f"<b>Your token has expired. Please refresh your token to continue.\n\nToken Timeout: {get_exp_time(VERIFY_EXPIRE)}\n\nWhat is the token?\n\nThis is an ads token. Passing one ad allows you to use the bot for {get_exp_time(VERIFY_EXPIRE)}</b>",
@@ -109,8 +109,8 @@ async def start_command(client: Client, message: Message):
         try:
             messages = await get_messages(client, ids)
         except Exception as e:
-            await message.reply_text("Something went wrong!")
-            print(f"Error getting messages: {e}")
+            await message.reply_text("Veuillez patientez!")
+            print(f"Eurreur de transfert du message: {e}")
             return
         finally:
             await temp_msg.delete()
@@ -138,7 +138,7 @@ async def start_command(client: Client, message: Message):
 
         if FILE_AUTO_DELETE > 0:
             notification_msg = await message.reply(
-                f"<b>This file will be deleted in {get_exp_time(FILE_AUTO_DELETE)}. Please save or forward it to your saved messages before it gets deleted.</b>"
+                f"<b>This file will be deleted in {get_exp_time(FILE_AUTO_DELETE)}. Veuillez Transferez ou commencez le telechargement du fichier. car elle sera supprimé bientôt.</b>"
             )
 
             await asyncio.sleep(FILE_AUTO_DELETE)
@@ -157,11 +157,11 @@ async def start_command(client: Client, message: Message):
                     else None
                 )
                 keyboard = InlineKeyboardMarkup(
-                    [[InlineKeyboardButton("Get File Again!", url=reload_url)]]
+                    [[InlineKeyboardButton("Ressayer!", url=reload_url)]]
                 ) if reload_url else None
 
                 await notification_msg.edit(
-                    "<b>ʏᴏᴜʀ ᴠɪᴅᴇᴏ / ꜰɪʟᴇ ɪꜱ ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ ᴅᴇʟᴇᴛᴇᴅ !!\n\nᴄʟɪᴄᴋ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴ ᴛᴏ ɢᴇᴛ ʏᴏᴜʀ ᴅᴇʟᴇᴛᴇᴅ ᴠɪᴅᴇᴏ / ꜰɪʟᴇ 👇</b>",
+                    "<b>Le Fichier Vient d'être effacé !!\n\nᴄʟɪck sur le bouton pour le retrouver 👇</b>",
                     reply_markup=keyboard
                 )
             except Exception as e:
@@ -172,7 +172,7 @@ async def start_command(client: Client, message: Message):
 
     [
                     InlineKeyboardButton("⚡️ ᴀʙᴏᴜᴛ", callback_data = "about"),
-                    InlineKeyboardButton('🍁 sᴇʀɪᴇsғʟɪx', url='https://t.me/Team_Netflix/40')
+                    InlineKeyboardButton('🍁 sᴇʀɪᴇsғʟɪx', url='https://t.me/serieetfilmsvfnet')
 
     ]
             ]
@@ -205,8 +205,8 @@ async def not_joined(client: Client, message: Message):
     # Check if the first and second channels are both set
     if FORCE_SUB_CHANNEL1 and FORCE_SUB_CHANNEL2:
         buttons.append([
-            InlineKeyboardButton(text="• ᴊᴏɪɴ ᴄʜᴀɴɴᴇʟ", url=client.invitelink1),
-            InlineKeyboardButton(text="ᴊᴏɪɴ ᴄʜᴀɴɴᴇʟ •", url=client.invitelink2),
+            InlineKeyboardButton(text="•Rejoindre la chaine", url=client.invitelink1),
+            InlineKeyboardButton(text="Rejoindre la chaine •", url=client.invitelink2),
         ])
     # Check if only the first channel is set
     elif FORCE_SUB_CHANNEL1:
