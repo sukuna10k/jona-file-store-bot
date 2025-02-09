@@ -15,7 +15,7 @@ async def cb_handler(client: Bot, query: CallbackQuery):
                 [
                     [
                         InlineKeyboardButton('ʜᴏᴍᴇ', callback_data='start'),
-                        InlineKeyboardButton("ᴄʟᴏꜱᴇ", callback_data='close')
+                        InlineKeyboardButton("Retour", callback_data='close')
                     ]
                 ]
             )
