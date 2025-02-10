@@ -62,7 +62,7 @@ ABOUT_TXT = "<b><blockquote>◈ Créteur: <a href=https://t.me/Kingcey</a>\n◈ 
 START_MSG = os.environ.get("START_MESSAGE", "<b><blockquote>Avengersssssss!! {first}\n\n Je suis un bot de stockage de fichiers, Je peux Stocker des fichiers puis vous pouvez les retrouvés Grâce à un lien Spetial .</blockquote></b>")
 try:
     ADMINS=[7428552084]
-    for x in (os.environ.get("ADMINS", "7428552084 6120299142 5760201151 5231212075").split()):
+    for x in (os.environ.get("ADMINS", "7428552084 6120299142 5760201151 1740287480").split()):
         ADMINS.append(int(x))
 except ValueError:
         raise Exception("Your Admins list does not contain valid integers.")
