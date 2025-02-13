@@ -20,7 +20,7 @@ CHANNEL_ID = int(os.environ.get("CHANNEL_ID", "-1002491166640"))
 # NAMA OWNER
 OWNER = os.environ.get("OWNER", "jnthree3")
 #OWNER ID
-OWNER_ID = int(os.environ.get("OWNER_ID", "6120299142"))
+OWNER_ID = int(os.environ.get("OWNER_ID", "7428552084"))
 #Port
 PORT = os.environ.get("PORT", "8030")
 #Database
@@ -32,7 +32,7 @@ TIME = int(os.environ.get("TIME", "230"))
 
 
 #force sub channel id, if you want enable force sub
-FORCE_SUB_CHANNEL1 = int(os.environ.get("FORCE_SUB_CHANNEL1", "-1002268712639"))
+FORCE_SUB_CHANNEL1 = int(os.environ.get("FORCE_SUB_CHANNEL1", "-1002278892364"))
 #put 0 to disable
 FORCE_SUB_CHANNEL2 = int(os.environ.get("FORCE_SUB_CHANNEL2", "0"))#put 0 to disable
 FORCE_SUB_CHANNEL3 = int(os.environ.get("FORCE_SUB_CHANNEL3", "0"))#put 0 to disable
