@@ -89,43 +89,53 @@ class Bot(Client):
         try:
             db_channel = await self.get_chat(CHANNEL_ID)
             self.db_channel = db_channel
-            test = await self.send_message(chat_id = db_channel.id, text = "Test Message")
-            await test.delete()
-        except Exception as e:
-            self.LOGGER(__name__).warning(e)
-            self.LOGGER(__name__).warning(f"Make Sure bot is Admin in DB Channel, and Double check the CHANNEL_ID Value, Current Value {CHANNEL_ID}")
-            self.LOGGER(__name__).info("\nBot Stopped. Join https://t.me/weebs_support for support")
-            sys.exit()
+            message_test = await self.send_message(chat_id=db_channel.id, text="Message de test")
+            await message_test.delete()
+            self.LOGGER(name).info(f"Connexion réussie à la chaîne de base de données&nbsp;: {CHANNEL_ID}")
+        except pyrogram.errors.exceptions.bad_request_400.PeerIdInvalid as e: # exception plus spécifique
+            self.LOGGER(name).error(f"ID de la chaîne de base de données invalide&nbsp;: {e}")
+            self.LOGGER(name).error(f"Veuillez vérifier la valeur de CHANNEL_ID. Valeur actuelle&nbsp;: {CHANNEL_ID}")
+            self.LOGGER(name).info("\nBot arrêté. Rejoignez https://t.me/weebs_support pour obtenir de l'aide")
+            sys.exit(1)
+        except Exception as e:  # pour les autres erreurs
+            self.LOGGER(name).exception(f"Erreur lors de la connexion à la chaîne de base de données {CHANNEL_ID}&nbsp;: {e}")
+            self.LOGGER(name).error(f"Assurez-vous que le bot est administrateur dans la chaîne de base de données et que CHANNEL_ID est correct. Valeur actuelle&nbsp;: {CHANNEL_ID}")
+            self.LOGGER(name).info("\nBot arrêté. Rejoignez https://t.me/weebs_support pour obtenir de l'aide")
+            sys.exit(1)
 
-        self.set_parse_mode(ParseMode.HTML)
-        self.LOGGER(__name__).info(f"Bot Running..!\n\nCreated by \nhttps://t.me/weebs_support")
-        self.LOGGER(__name__).info(f"""       
 
-
+        self.LOGGER(name).info(f"Bot en fonctionnement&nbsp;!\n\nCréé par \nhttps://t.me/weebs_support")
+        self.LOGGER(name).info(f"""       
   ___ ___  ___  ___ ___ _    _____  _____  ___ _____ ___ 
- / __/ _ \|   \| __| __| |  |_ _\ \/ / _ )/ _ \_   _/ __|
-| (_| (_) | |) | _|| _|| |__ | | >  <| _ \ (_) || | \__ \
+ / / _ \|   \| | | |  |_ _\ \/ / _ )/ _ \_   _/ |
+| (_| (_) | |) | _|| _|| | | | >  <| _ \ (_) || | \ \
  \___\___/|___/|___|_| |____|___/_/\_\___/\___/ |_| |___/
-                                                         
- 
-                                          """)
 
-        self.set_parse_mode(ParseMode.HTML)
+ """)
+
         self.username = usr_bot_me.username
-        self.LOGGER(__name__).info(f"Bot Running..! Made by @Codeflix_Bots")   
+        self.LOGGER(name).info(f"Bot en fonctionnement&nbsp;! Fait par @Codeflix_Bots")
 
-        # Start Web Server
-        app = web.AppRunner(await web_server())
-        await app.setup()
-        await web.TCPSite(app, "0.0.0.0", PORT).start()
+        # Démarrage du serveur Web (Gestion des erreurs ajoutée)
+        try:
+            app = web.AppRunner(await web_server())
+            await app.setup()
+            await web.TCPSite(app, "0.0.0.0", PORT).start()
+            self.LOGGER(name).info(f"Serveur web démarré sur le port {PORT}")
+        except Exception as e:
+            self.LOGGER(name).exception(f"Erreur lors du démarrage du serveur web&nbsp;: {e}")
+            self.LOGGER(name).info("\nBot arrêté. Rejoignez https://t.me/weebs_support pour obtenir de l'aide")
+            sys.exit(1)
 
 
-        try: await self.send_message(OWNER_ID, text = f"<b><blockquote>🤖 Bᴏᴛ Rᴇsᴛᴀʀᴛᴇᴅ by @bot_kingDOX</blockquote></b>")
-        except: pass
+        try:
+            await self.send_message(OWNER_ID, text=f"<b><blockquote>🤖 Bot redémarré par @bot_kingDOX</blockquote></b>")
+        except Exception as e:
+            self.LOGGER(name).warning(f"Impossible d'envoyer le message de redémarrage au propriétaire&nbsp;: {e}")
 
     async def stop(self, *args):
         await super().stop()
-        self.LOGGER(__name__).info("Bot stopped.")
+        self.LOGGER(name).info("Bot arrêté.")
 
     def run(self):
         """Run the bot."""
